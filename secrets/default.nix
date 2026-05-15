@@ -22,6 +22,11 @@ in {
         owner = "fractal";
         mode = "0600";
       };
+      alpha-vds = {
+        path = "/home/fractal/.ssh/alpha-vds.ed25519";
+        owner = "fractal";
+        mode = "0600";
+      };
     };
   };
 }
