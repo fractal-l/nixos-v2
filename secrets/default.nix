@@ -1,5 +1,10 @@
 {pkgs, ...}: let
   keyFile = "/var/lib/sops-nix/age.key";
+  mkUserKey = name: {
+    path = "/home/fractal/.ssh/${name}";
+    owner = "fractal";
+    mode = "0600";
+  };
 in {
   environment.variables = {"SOPS_AGE_KEY_FILE" = keyFile;};
   environment.systemPackages = with pkgs; [sops age-plugin-tpm age];
@@ -12,21 +17,10 @@ in {
     };
 
     secrets = {
-      github = {
-        path = "/home/fractal/.ssh/github.ed25519";
-        owner = "fractal";
-        mode = "0600";
-      };
-      git-signing = {
-        path = "/home/fractal/.ssh/git-signing.ed25519";
-        owner = "fractal";
-        mode = "0600";
-      };
-      alpha-vds = {
-        path = "/home/fractal/.ssh/alpha-vds.ed25519";
-        owner = "fractal";
-        mode = "0600";
-      };
+      github = mkUserKey "github.ed25519";
+      git-signing = mkUserKey "git-signing.ed25519";
+      alpha-vds = mkUserKey "alpha-vds.ed25519";
+      router = mkUserKey "router";
     };
   };
 }
