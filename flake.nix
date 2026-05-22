@@ -48,7 +48,8 @@
     };
     freesmlauncher = {
       url = "github:fractal/FreesmLauncher";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # broken with last unstable
+      #inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
