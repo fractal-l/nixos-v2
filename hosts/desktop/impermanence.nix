@@ -29,6 +29,7 @@
         ".local/share"
         ".steam"
         ".config"
+        ".var"
         ".cache/noctalia"
         ".local/state/noctalia"
       ];
@@ -45,7 +46,10 @@
     before = ["sysroot.mount"];
 
     path = with pkgs; [
-      busybox
+      coreutils
+      findutils
+      gnused
+      util-linux
       btrfs-progs
     ];
 

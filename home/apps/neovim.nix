@@ -185,48 +185,6 @@
 
       {
         mode = "n";
-        key = "gd";
-        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
-        options.desc = "go to definition";
-      }
-      {
-        mode = "n";
-        key = "gr";
-        action = "<cmd>lua vim.lsp.buf.references()<CR>";
-        options.desc = "references";
-      }
-      {
-        mode = "n";
-        key = "gi";
-        action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
-        options.desc = "implementation";
-      }
-      {
-        mode = "n";
-        key = "K";
-        action = "<cmd>lua vim.lsp.buf.hover()<CR>";
-        options.desc = "hover docs";
-      }
-      {
-        mode = "n";
-        key = "<leader>ca";
-        action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
-        options.desc = "code action";
-      }
-      {
-        mode = "n";
-        key = "<leader>rn";
-        action = "<cmd>lua vim.lsp.buf.rename()<CR>";
-        options.desc = "rename symbol";
-      }
-      {
-        mode = "n";
-        key = "<leader>d";
-        action = "<cmd>lua vim.diagnostic.open_float()<CR>";
-        options.desc = "line diagnostics";
-      }
-      {
-        mode = "n";
         key = "[d";
         action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
         options.desc = "prev diagnostic";
@@ -317,6 +275,15 @@
         };
 
         inlayHints = true;
+
+        keymaps = {
+          silent = true;
+          diagnostic = {
+            "<leader>d" = "open_float";
+            "[d" = "goto_prev";
+            "]d" = "goto_next";
+          };
+        };
       };
 
       cmp = {
@@ -387,20 +354,6 @@
           source = "if_many",
         },
       })
-
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(event)
-          local keymap = vim.keymap.set
-
-          keymap("n", "gd", vim.lsp.buf.definition, { buffer = event.buf, silent = true })
-          keymap("n", "gr", vim.lsp.buf.references, { buffer = event.buf, silent = true })
-          keymap("n", "gi", vim.lsp.buf.implementation, { buffer = event.buf, silent = true })
-          keymap("n", "K", vim.lsp.buf.hover, { buffer = event.buf, silent = true })
-          keymap("n", "<leader>rn", vim.lsp.buf.rename, { buffer = event.buf, silent = true })
-          keymap("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = event.buf, silent = true })
-          keymap("n", "<leader>d", vim.diagnostic.open_float, { buffer = event.buf, silent = true })
-        end,
-      })
     '';
 
     extraPackages = with pkgs; [
@@ -416,7 +369,6 @@
       black
       prettierd
       shfmt
-      clang-tools
       cmake-format
 
       ripgrep

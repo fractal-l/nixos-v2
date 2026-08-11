@@ -1,5 +1,9 @@
 {lib, ...}: {
   programs.zoxide.enable = true;
+  programs.starship = {
+    enable = true;
+    # meh it doesnt support includes so i did it imperatively
+  };
   programs.zsh = {
     enable = true;
     autocd = true;

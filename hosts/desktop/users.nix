@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  users.users.fractal = {
+  users.users.kaeeraa = {
     isNormalUser = true;
     description = "fractal";
     shell = pkgs.zsh;
@@ -16,11 +16,10 @@
     hashedPassword = "$y$j9T$jPj9ABaZtzpnuWhTNF62O.$znOwZYYvs0otGcIHXrujM54XND7/f2Z4zxm3ahQo/Z7";
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHWBzjU2qTNlQo4mR0gjQ8mtM0zNZWy2vnW2zkTFam5q fractal@desktop"];
   };
-
   security.doas.enable = true;
   security.doas.extraRules = [
     {
-      users = ["fractal"];
+      users = ["kaeeraa"];
       keepEnv = true;
       noPass = true;
     }

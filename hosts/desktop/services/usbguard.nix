@@ -23,6 +23,8 @@
       allow id 18d1:d00d serial "" name "Android" hash "q+GXPUySAMpAVN6uMdQum+GYUUzLuSqxx6cr9xWx1Hw=" parent-hash "3diggCc+UIkz1I9skI/9PxceyT0kr5r7GL5FqNeqFZg=" via-port "1-5.2" with-interface ff:42:03
       allow id 0951:1665 serial "408D5CE4BBC5B471D98A5118" name "DataTraveler 2.0" hash "TcUSjbctmyXxYhSEKPgnF4YbnVKLIcxPzb84U9TPwdU=" parent-hash "FGuVbl7eGM2kGxiOo6leosLNLxYDVZ3qmzymndTLoEQ=" via-port "3-2" with-interface 08:06:50
       allow id 2d99:e055 serial "USBCompositeDevice" name "EDIFIER W830NB" hash "eTzQjmvGWueAODl3BEHiqYkXVrFZDKaBuSSmtemUV6c=" parent-hash "3diggCc+UIkz1I9skI/9PxceyT0kr5r7GL5FqNeqFZg=" via-port "1-5.2" with-interface { 01:01:00 01:02:00 01:02:00 01:02:00 01:02:00 01:02:00 01:02:00 03:00:00 } with-connect-type "unknown"
+      allow id 2d99:e055 serial "USBCompositeDevice" name "EDIFIER W830NB" hash "eTzQjmvGWueAODl3BEHiqYkXVrFZDKaBuSSmtemUV6c=" parent-hash "5Ab7xmb4dhkTvl5F82TpmJ/SjPC0gQJE3U3C1N9NBgM="
+      allow id 2341:0043 serial "24238313136351914180" name "" hash "PuUtdXcDYcewfiP1j/Q/WuYTjhuukCDGuhTWki3d3U4=" parent-hash "4JN/q7j8G1v5ObPqMaeG524CpKYR/flBUJppBD9zoks="
       reject
     '';
   };

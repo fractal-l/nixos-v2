@@ -41,17 +41,12 @@
         identityFile = "~/.ssh/poland2_bn.ed25519";
         identitiesOnly = true;
       };
-      pterodactyl_bn = {
+      billing_bn = {
         user = "root";
-        identityFile = "~/.ssh/pterodactyl_bn.ed25519";
+        port = "22";
+        identityFile = "~/.ssh/billing_bn.ed25519";
         identitiesOnly = true;
-        include = "~/.ssh/pterodactyl_bn-hostname";
-      };
-      hostiq-uni = {
-        user = "root";
-        identityFile = "~/.ssh/hostiq-uni.ed25519";
-        identitiesOnly = true;
-        include = "~/.ssh/hostiq-uni-hostname";
+        include = "~/.ssh/billing_bn-hostname";
       };
     };
   };

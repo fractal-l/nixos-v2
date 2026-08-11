@@ -1,17 +1,37 @@
-{...}: {
+{pkgs, lib, config, ...}: {
   security.sudo.enable = false;
+
   security.run0 = {
-    wheelNeedsPassword = false;
+    enable = true;
     enableSudoAlias = true;
+    wheelNeedsPassword = false;
   };
+
+  security.doas = {
+    enable = true;
+    extraRules = [
+      {
+        users = ["kaeeraa"];
+        keepEnv = true;
+        noPass = true;
+      }
+    ];
+  };
+
   systemd.coredump.enable = false;
-  # ➡️ Sets the kernel's resource limit (ulimit -c 0)
   security.pam.loginLimits = [
     {
-      domain = "*"; # Applies to all users/sessions
-      type = "-"; # Set both soft and hard limits
-      item = "core"; # The soft/hard limit item
-      value = "0"; # Core dumps size is limited to 0 (effectively disabled)
+      domain = "*";
+      type = "-";
+      item = "core";
+      value = "0";
     }
   ];
+
+  security.wrappers.input-remapper-gtk = lib.mkIf config.services.input-remapper.enable {
+    source = "${pkgs.input-remapper}/bin/input-remapper-gtk";
+    owner = "root";
+    group = "root";
+    setuid = true;
+  };
 }

@@ -13,11 +13,11 @@
   };
   programs.git = {
     enable = true;
+    package = pkgs.gitFull;
 
     settings = {
-      user.name = "fractal";
-      user.email = "fractal@nebula-nook.ru";
-
+      user.name = "fractal-l";
+      user.email = "99148867+fractal-l@users.noreply.github.com";
       init.defaultBranch = "main";
       pull.rebase = true;
       push.autoSetupRemote = true;
@@ -32,7 +32,6 @@
       };
 
       color.ui = "auto";
-
       credential.helper = "libsecret";
 
       gpg.format = "ssh";

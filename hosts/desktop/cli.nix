@@ -65,6 +65,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    uutils-coreutils-noprefix
+
     git
     curl
     wget
@@ -87,6 +89,8 @@
     man-pages-posix
     fastfetch
     just
+    libqalculate
+    codex
   ];
 
   environment.shellAliases = {

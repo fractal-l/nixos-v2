@@ -8,10 +8,7 @@
         live_config_reload = true;
       };
 
-      env = {
-        TERM = "xterm-256color";
-      };
-
+      env.TERM = "xterm-256color";
       window = {
         padding = {
           x = 12;
@@ -19,18 +16,11 @@
         };
 
         dynamic_padding = true;
-
         decorations = "None";
-
-        opacity = 0.92;
-
+        opacity = 0.1;
         blur = true;
-
         startup_mode = "Windowed";
-
         dynamic_title = true;
-
-        resize_increments = true;
       };
 
       scrolling = {
@@ -69,23 +59,12 @@
         };
 
         blink_interval = 500;
-
         unfocused_hollow = true;
-
         thickness = 0.18;
       };
 
-      selection = {
-        save_to_clipboard = true;
-      };
-
-      mouse = {
-        hide_when_typing = true;
-      };
-
-      terminal = {
-        osc52 = "CopyPaste";
-      };
+      mouse.hide_when_typing = true;
+      terminal.osc52 = "CopyPaste";
 
       keyboard.bindings = [
         {

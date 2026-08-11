@@ -1,6 +1,7 @@
 {
   lib,
   settings,
+  config,
   system,
   pkgs,
   inputs,
@@ -16,6 +17,10 @@ in {
   imports = [inputs.mangowm.hmModules.mango];
   wayland.windowManager.mango = {
     enable = true;
+    bottomPrefixes = ["source"];
+    extraConfig = ''
+      source=${config.home.homeDirectory}/.config/mango/noctalia.conf
+    '';
     settings = {
       monitorrule = [
         "name:DP-1,width:1920,height:1080,refresh:165,x:0,y:0,vrr:1"
@@ -34,11 +39,9 @@ in {
 
       focus_on_activate = 1;
       allow_tearing = 1;
-      blur_optimized = 1;
       drag_tile_to_tile = 1;
 
       animations = 1;
-      layer_animations = 1;
 
       animation_type_open = "zoom";
       animation_type_close = "zoom";
@@ -50,50 +53,55 @@ in {
 
       tag_animation_direction = 1;
 
-      zoom_initial_ratio = 0.35;
-      zoom_end_ratio = 0.92;
+      zoom_initial_ratio = 0.85;
+      zoom_end_ratio = 1.0;
 
-      animation_duration_open = 240;
-      animation_duration_close = 180;
-      animation_duration_move = 160;
-      animation_duration_tag = 220;
+      animation_duration_open = 200;
+      animation_duration_close = 150;
+      animation_duration_move = 150;
+      animation_duration_tag = 200;
       animation_duration_focus = 0;
 
-      animation_curve_open = "0.2,0.9,0.2,1";
-      animation_curve_close = "0.2,0.9,0.2,1";
-      animation_curve_move = "0.2,0.9,0.2,1";
-      animation_curve_tag = "0.2,0.9,0.2,1";
-      animation_curve_focus = "0.2,0.9,0.2,1";
-      animation_curve_opafadeout = "0.3,0.0,0.2,1";
-      animation_curve_opafadein = "0.2,0.9,0.2,1";
+      animation_curve_open = "0.22, 1, 0.36, 1";
+      animation_curve_close = "0.22, 1, 0.36, 1";
+      animation_curve_move = "0.22, 1, 0.36, 1";
+      animation_curve_tag = "0.22, 1, 0.36, 1";
+      animation_curve_focus = "0.22, 1, 0.36, 1";
+      animation_curve_opafadeout = "0.22, 1, 0.36, 1";
+      animation_curve_opafadein = "0.22, 1, 0.36, 1";
 
-      gappih = 6;
-      gappiv = 6;
-      gappoh = 6;
-      gappov = 6;
+      gappih = 8;
+      gappiv = 8;
+      gappoh = 8;
+      gappov = 8;
 
       borderpx = 1;
-      border_radius = 10;
+      border_radius = 12;
 
       blur = 1;
       blur_layer = 0;
-      blur_params_radius = 10;
-      blur_params_num_passes = 3;
-
+      blur_optimized = 1;
+      blur_params_num_passes = 1;
+      blur_params_radius = 6;
+      blur_params_noise = 0.01;
       blur_params_brightness = 0.95;
-      blur_params_contrast = 0.85;
-      blur_params_saturation = 1.15;
+      blur_params_contrast = 0.95;
+      blur_params_saturation = 1.1;
 
-      shadows = 1;
+      layer_animations = 0;
+      shadows = 0;
       layer_shadows = 0;
       shadow_only_floating = 1;
-      shadows_blur = 18;
-      shadows_size = 10;
+      shadows_size = 20;
+      shadows_blur = 25;
+      shadows_position_x = 0;
+      shadows_position_y = 5;
+      shadowscolor = "0x1d2021cc";
 
-      focused_opacity = 0.97;
-      unfocused_opacity = 0.88;
+      focused_opacity = 1;
+      unfocused_opacity = 0.92;
 
-      cursor_size = 12;
+      cursor_size = 16;
       cursor_theme = "GoogleDot-Black";
 
       env = [
@@ -109,7 +117,7 @@ in {
         "GDK_DPI_SCALE,1.2"
         "GDK_BACKEND,wayland"
 
-        "XCURSOR_SIZE,12"
+        "XCURSOR_SIZE,16"
 
         "__GL_SHADER_DISK_CACHE,1"
         "__GL_SHADER_DISK_CACHE_PATH,$HOME/.nv/GLCache"
@@ -117,7 +125,7 @@ in {
       ];
 
       exec-once = [
-        "pkill -9 .quickshell-wra; ${noctalia-shell-bin}"
+        "${noctalia-shell-bin}"
         "${throne-bin}"
         "${ayugram-desktop-bin} -autostart"
         "${element-desktop-bin} --no-update --hidden"
@@ -187,9 +195,6 @@ in {
         "SUPER,btn_right,moveresize,curresize"
       ];
     };
-    extraConfig = ''
-      source-optional = "~/.config/mango/noctalia.conf"
-    '';
   };
   home.packages = with pkgs; [
     google-cursor

@@ -48,7 +48,6 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [130];
       allowedUDPPorts = [9];
       allowedUDPPortRanges = [
         {

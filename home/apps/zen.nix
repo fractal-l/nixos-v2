@@ -40,10 +40,11 @@
         "privacy.resistFingerprinting" = false;
         "privacy.firstparty.isolate" = true;
 
-        "sine.engine.auto-update" = false;
-
         "browser.search.defaultenginename" = "DuckDuckGo";
         "browser.urlbar.defaultenginename" = "DuckDuckGo";
+
+        # noctalia
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
     };
 
@@ -51,10 +52,6 @@
       id = 0;
       name = "fractal";
       isDefault = true;
-      sine = {
-        enable = true;
-        mods = ["Nebula"];
-      };
 
       extensions.packages = with inputs.firefox-addons.packages.${system}; [
         ublock-origin

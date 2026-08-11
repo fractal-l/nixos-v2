@@ -1,19 +1,18 @@
 {pkgs, ...}: {
-  services.xserver.enable = true;
   services.dbus.enable = true;
+  security.rtkit.enable = true;
   security.polkit.enable = true;
   programs.dconf.enable = true;
-  services.displayManager.gdm.enable = false;
-
-  environment.systemPackages = [pkgs.sddm-gruvbox];
 
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+
     extraPortals = [
       pkgs.xdg-desktop-portal-wlr
       pkgs.xdg-desktop-portal-gtk
     ];
+
     configPackages = [
       pkgs.xdg-desktop-portal-wlr
       pkgs.xdg-desktop-portal-gtk
@@ -21,66 +20,89 @@
   };
 
   services.blueman.enable = true;
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+
     settings = {
       General = {
-        Enable = "Source,Sink,Media,Socket";
         Experimental = true;
         FastConnectable = true;
+        ControllerMode = "dual";
       };
     };
   };
 
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
+
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+
     pulse.enable = true;
-    wireplumber.enable = true;
-    wireplumber.extraConfig.bluetooth = {
-      "51-disable-hfp" = {
-        "monitor.bluez.properties" = {
-          "bluez5.enable-hfp" = false;
-          "bluez5.enable-sco" = false;
-          "bluez5.enable-ldac" = true;
-        };
-      };
-      extraConfig.pipewire = {
-        "99-custom-config" = {
-          "context.properties" = {
-            "default.clock.rate" = 48000;
-            "default.clock.quantum" = 1024;
-            "default.clock.min-quantum" = 32;
-            "default.clock.max-quantum" = 2048;
 
-            # CPU optimization
-            "default.clock.power-of-two-quantum" = false;
+    wireplumber = {
+      enable = true;
 
-            # Memory settings
-            "mem.warn-mlock" = false;
-            "mem.allow-mlock" = true;
+      extraConfig = {
+        bluetooth = {
+          "10-bluetooth-config" = {
+            "monitor.bluez.properties" = {
+              "bluez5.enable-sbc-xq" = true;
+              "bluez5.enable-msbc" = false;
+              "bluez5.enable-hw-volume" = true;
+
+              "bluez5.enable-hfp" = false;
+              "bluez5.enable-hsp" = false;
+              "bluez5.enable-sco" = false;
+
+              "bluez5.roles" = [
+                "a2dp_sink"
+                "a2dp_source"
+              ];
+            };
+          };
+
+          "20-bluetooth-policy" = {
+            "monitor.bluez.rules" = [
+              {
+                matches = [
+                  {
+                    "device.name" = "~bluez_card.*";
+                  }
+                ];
+
+                actions = {
+                  update-props = {
+                    "device.profile" = "a2dp-sink";
+                  };
+                };
+              }
+            ];
           };
         };
-      };
-      extraConfig.jack."99-buffer-size"."jack.properties"."default.buffer-size" = 1024;
-      extraConfig.pipewire-pulse = {
-        "99-pulse-config" = {
-          "pulse.properties" = {
-            "pulse.min.req" = "1024/48000";
-            "pulse.default.req" = "2048/48000";
-            "pulse.max.req" = "4048/48000";
-            "pulse.min.frag" = "1024/48000";
-            "pulse.default.frag" = "2048/48000";
-            "pulse.max.frag" = "4048/48000";
-            "pulse.default.tlength" = "4048/48000";
-            "pulse.min.quantum" = "1024/48000";
-            "pulse.max.quantum" = "2048/48000";
+
+        pipewire = {
+          "99-performance" = {
+            "context.properties" = {
+              "default.clock.rate" = 48000;
+              "default.clock.quantum" = 512;
+              "default.clock.min-quantum" = 32;
+              "default.clock.max-quantum" = 1024;
+            };
           };
-          "stream.properties" = {
-            "node.latency" = "1024/48000";
-            "resample.quality" = 4;
+        };
+
+        pipewire-pulse = {
+          "99-pulse" = {
+            "pulse.properties" = {
+              "pulse.min.req" = "512/48000";
+              "pulse.default.req" = "512/48000";
+              "pulse.max.req" = "1024/48000";
+            };
           };
         };
       };
@@ -89,6 +111,13 @@
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
+
+  services.logind.settings = {
+    Login = {
+      IdleAction = "hybrid-sleep";
+      IdleActionSec = "30min";
+    };
+  };
 
   environment.sessionVariables = {
     XDG_SESSION_TYPE = "wayland";

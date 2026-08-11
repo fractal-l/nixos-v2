@@ -37,25 +37,26 @@
     };
   };
 
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="pci", DRIVER=="pcieport", ATTR{power/wakeup}="disabled"
-    ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
-  '';
-  services.udev.packages = with pkgs; [
-    platformio-core.udev
-    openocd
-  ];
+  services.udev = {
+    extraRules = ''
+      ACTION=="add", SUBSYSTEM=="pci", DRIVER=="pcieport", ATTR{power/wakeup}="disabled"
+      ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
+    '';
+    packages = with pkgs; [
+      platformio-core.udev
+      openocd
+    ];
+  };
   services.logind.settings.Login = {
     HandlePowerKey = "suspend";
     HandleSuspendKey = "suspend";
     HandleHibernateKey = "suspend";
   };
-  systemd.sleep.settings.Sleep = {
-    suspendState = "mem";
-  };
+  systemd.sleep.settings.Sleep.SuspendState = "mem";
   services.flatpak.enable = true;
   services.input-remapper = {
     enable = true;
+    serviceWantedBy = ["multi-user.target"];
     enableUdevRules = true;
   };
 }

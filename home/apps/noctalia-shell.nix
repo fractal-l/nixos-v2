@@ -12,7 +12,6 @@
 in {
   imports = [inputs.noctalia-shell.homeModules.default];
 
-  home.file.".cache/noctalia/wallpapers.json".text = builtins.toJSON {defaultWallpaper = ../../static/wallpaper.jpg;};
   programs.noctalia = {
     enable = true;
     #    settings = {
@@ -129,21 +128,28 @@ in {
     #      nightLight.enabled = true;
     #    };
   };
-  systemd.user.services.lockBeforeSleep = {
-    Unit = {
-      Description = "lock noctalia before sleep";
-      Before = ["sleep.target"];
-    };
-
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${noctalia-shell-bin} msg session lock";
-    };
-
-    Install.WantedBy = ["sleep.target"];
-  };
+  #  systemd.user.services.lockBeforeSleep = {
+  #    Unit = {
+  #      Description = "lock noctalia before sleep";
+  #    };
+  #
+  #    Service = {
+  #      Type = "simple";
+  #      ExecStart = "${pkgs.writeShellScript "noctalia-lock-sleep" ''
+  #        ${pkgs.dbus}/bin/dbus-monitor --system \
+  #          "type='signal',interface='org.freedesktop.login1.Manager',member='PrepareForSleep'" | \
+  #        while read -r line; do
+  #          if echo "$line" | grep -q "boolean true"; then
+  #            ${noctalia-shell-bin} msg session lock
+  #          fi
+  #        done
+  #      ''}";
+  #      Restart = "always";
+  #    };
+  #  };
 
   home.packages = with pkgs; [
+    mpvpaper
     cliphist
     wl-clipboard
   ];

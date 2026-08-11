@@ -16,14 +16,17 @@
   home.stateVersion = "26.05";
 
   fonts.fontconfig.enable = true;
-  services.gnome-keyring.enable = true;
+  services.gnome-keyring = {
+    enable = true;
+    components = ["secrets" "pkcs11" "ssh"];
+  };
 
   home.packages = with pkgs; [
     inputs.ayugram-desktop.packages.${system}.default
     inputs.freesmlauncher.packages.${system}.default
+    inputs.nix-gaming.packages.${system}.rocket-league
 
     yandex-music
-    kicad
     obsidian
     postman
 
@@ -31,13 +34,18 @@
     nerd-fonts.iosevka
     inter
 
-    libqalculate
-    codex
     gpu-screen-recorder
     devenv
     element-desktop
+    gwe
+    opencode
+    opencode-desktop
 
-    nixd
+    bitwarden-cli
+    keyguard
+
+    nodejs_latest
+    bun
   ];
 
   home.sessionVariables = {

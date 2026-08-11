@@ -7,6 +7,6 @@
 
   services.flatpak = {
     enable = config.services.flatpak.packages != [];
-    packages = [];
+    packages = ["org.vinegarhq.Sober"];
   };
 }

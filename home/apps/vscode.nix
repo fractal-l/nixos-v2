@@ -8,41 +8,54 @@
     mutableExtensionsDir = true;
 
     profiles.default = {
-      extensions = with pkgs.vscode-extensions; [
-        jdinhlife.gruvbox
-        pkief.material-icon-theme
+      extensions = pkgs.nix4vscode.forVscode [
+        "jdinhlife.gruvbox"
+        "pkief.material-icon-theme"
 
-        jnoortheen.nix-ide
-        sumneko.lua
-        ms-python.python
-        ms-python.vscode-pylance
-        mads-hartmann.bash-ide-vscode
-        esbenp.prettier-vscode
+        "jnoortheen.nix-ide"
+        "ms-python.python"
+        "ms-python.vscode-pylance"
+        "mads-hartmann.bash-ide-vscode"
+        "esbenp.prettier-vscode"
 
-        editorconfig.editorconfig
-        foxundermoon.shell-format
-        mkhl.direnv
-        kamadorueda.alejandra
+        "editorconfig.editorconfig"
+        "foxundermoon.shell-format"
+        "mkhl.direnv"
+        "kamadorueda.alejandra"
 
-        rust-lang.rust-analyzer
-        tamasfe.even-better-toml
-        charliermarsh.ruff
-        usernamehw.errorlens
-        christian-kohler.path-intellisense
-        yzhang.markdown-all-in-one
-        ms-vscode.cmake-tools
-        ms-vscode.cpptools
-        platformio.platformio-vscode-ide
-        ms-vscode.remote-explorer
-        ms-vscode-remote.remote-ssh
-        ms-vscode-remote.remote-ssh-edit
+        "rust-lang.rust-analyzer"
+        "tamasfe.even-better-toml"
+        "charliermarsh.ruff"
+        "usernamehw.errorlens"
+        "christian-kohler.path-intellisense"
+        "yzhang.markdown-all-in-one"
 
-        llvm-vs-code-extensions.vscode-clangd
-        ms-vscode.cpptools-extension-pack
-        github.vscode-github-actions
-        nefrob.vscode-just-syntax
+        "ms-vscode.cmake-tools"
+        "ms-vscode.cpptools"
+
+        "ms-vscode.remote-explorer"
+        "ms-vscode-remote.remote-ssh"
+        "ms-vscode-remote.remote-ssh-edit"
+
+        "llvm-vs-code-extensions.vscode-clangd"
+        "ms-vscode.cpptools-extension-pack"
+
+        "github.vscode-github-actions"
+        "nefrob.vscode-just-syntax"
+
+        "vscjava.vscode-java-pack"
+        "mathiasfrohlich.kotlin"
+
+        "dbaeumer.vscode-eslint"
+        "christian-kohler.npm-intellisense"
+        "aaron-bond.better-comments"
+        "datakurre.devenv"
+        "platformio.platformio-ide"
+
+        "inferrinizzard.prettier-sql-vscode"
+
+        "noctalia.noctaliatheme"
       ];
-
       userSettings = {
         "window.zoomLevel" = 0;
         "workbench.colorTheme" = "Gruvbox Dark Hard";
@@ -75,13 +88,14 @@
         "editor.minimap.autohide" = "mouseover";
         "editor.smoothScrolling" = true;
         "terminal.integrated.smoothScrolling" = true;
+        "files.eol" = "\n";
 
         "cmake.configureOnOpen" = true;
         "cmake.buildDirectory" = "\${workspaceFolder}/build";
         "cmake.generator" = "Ninja";
         "cmake.exportCompileCommandsFile" = true;
         "clangd.arguments" = [
-          "--compile-commands-dir=build"
+          "--compile-commands-dir=\${workspaceFolder}/build"
           "--background-index"
           "--clang-tidy"
           "--completion-style=detailed"
@@ -89,8 +103,13 @@
         "C_Cpp.intelliSenseEngine" = "disabled";
 
         "chat.disableAIFeatures" = true;
-
+        "terminal.integrated.profiles.linux" = {
+          zsh = {
+            path = "${pkgs.zsh}/bin/zsh";
+          };
+        };
         "terminal.integrated.defaultProfile.linux" = "zsh";
+        "platformio-ide.useBuiltinPIOCore" = false;
 
         "git.autofetch" = true;
         "git.confirmSync" = false;
@@ -104,24 +123,23 @@
 
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "nixd";
-        "nix.formatterPath" = "nixfmt";
-        "nix.serverSettings" = {
-          "nixd" = {
-            "formatting" = {"command" = ["nixfmt"];};
-            "options" = {"nixos" = {"expr" = "import <nixpkgs/nixos> {}";};};
-          };
-        };
+        "nix.formatterPath" = "alejandra";
 
         "python.analysis.languageServerMode" = "full";
         "python.analysis.typeCheckingMode" = "standard";
         "python.analysis.diagnosticMode" = "workspace";
-        "python.analysis.fixAll" = ["source.unusedImports" "source.convertImportFormat" "source.convertImportStar" "source.addTypeAnnotation"];
+        "python.analysis.fixAll" = [
+          "source.unusedImports"
+          "source.convertImportFormat"
+          "source.convertImportStar"
+          "source.addTypeAnnotation"
+        ];
 
         "bashIde.shfmt.simplifyCode" = true;
         "shellformat.path" = "${pkgs.shfmt}/bin/shfmt";
 
         "telemetry.telemetryLevel" = "off";
-        "extensions.autoUpdate" = false;
+        "extensions.autoUpdate" = "off";
         "update.mode" = "none";
         "workbench.enableExperiments" = false;
         "security.workspace.trust.enabled" = false;
@@ -130,23 +148,31 @@
         "workbench.list.smoothScrolling" = true;
         "keyboard.dispatch" = "keyCode";
 
-        "files.watcherExclude" = {
-          "**/node_modules/**" = true;
-          "**/.git/**" = true;
-          "**/dist/**" = true;
+        "eslint.lintTask.enable" = true;
+        "eslint.format.enable" = true;
+
+        "files.exclude" = {
+          "**/node_modules" = true;
+          "**/.git" = true;
+          "**/dist" = true;
+          "**/.devenv" = true;
+          "**/*.lock" = true;
         };
 
         "[nix]"."editor.defaultFormatter" = "kamadorueda.alejandra";
-        "[env]"."editor.defaultFormatter" = "foxundermoon.shell-format";
-        "[python]"."editor.defaultFormatter" = "charliermarsh.ruff";
         "[toml]"."editor.defaultFormatter" = "tamasfe.even-better-toml";
         "[shellscript]"."editor.defaultFormatter" = "foxundermoon.shell-format";
-        "[gitignore]"."editor.defaultFormatter" = "foxundermoon.shell-format";
+        "[gitignore]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "[markdown]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "[python]"."editor.defaultFormatter" = "charliermarsh.ruff";
         "[rust]"."editor.defaultFormatter" = "rust-lang.rust-analyzer";
         "[cpp]"."editor.defaultFormatter" = "llvm-vs-code-extensions.vscode-clangd";
-        "[ignore]"."editor.defaultFormatter" = "foxundermoon.shell-format";
         "[just]"."editor.defaultFormatter" = "nefrob.vscode-just-syntax";
+        "[sql]"."editor.defaultFormatter" = "inferrinizzard.prettier-sql-vscode";
+        "[javascript]"."editor.defaultFormatter" = "dbaeumer.vscode-eslint";
+        "[typescript]"."editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
+
       keybindings = [
         {
           key = "ctrl+h";
@@ -229,6 +255,7 @@
       enableExtensionUpdateCheck = false;
     };
   };
+
   home.packages = with pkgs; [
     platformio
     avrdude
@@ -239,5 +266,8 @@
     llvmPackages.clang-tools
     just-lsp
     just-formatter
+    alejandra
+    shfmt
+    nixd
   ];
 }

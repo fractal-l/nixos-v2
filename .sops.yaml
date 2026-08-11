@@ -1,9 +1,7 @@
 keys:
-  - &desktop age1tag1qwh82vlvm3s32xamucv6kxdctqh603suagxw7ekrktq3rmrp37d6yet4myq
-  - &hostiq-uni age1mhnzqcfusq0q22yjtpqxhnxmpgqe8t7q8scqwfemntuwyn93vgqqv5kap3
+  - &desktop age1hd3953aew4gcycq4ch7wd0u8m2jvhkhc7tfj4w3l0wg2k24tnfhszhadn9
 creation_rules:
   - path_regex: secrets.yaml
     key_groups:
       - age:
           - *desktop
-          - *hostiq-uni
