@@ -1,7 +1,7 @@
 {...}: {
   services.usbguard = {
     enable = true;
-    IPCAllowedUsers = ["root" "fractal"];
+    IPCAllowedUsers = ["root" "kaeeraa"];
     presentDevicePolicy = "allow";
 
     rules = ''

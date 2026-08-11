@@ -11,8 +11,8 @@
     ./services
   ];
 
-  home.username = "fractal";
-  home.homeDirectory = "/home/fractal";
+  home.username = "kaeeraa";
+  home.homeDirectory = "/home/kaeeraa";
   home.stateVersion = "26.05";
 
   fonts.fontconfig.enable = true;

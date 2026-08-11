@@ -14,7 +14,7 @@
 
     ayugram-desktop.url = "github:ndfined-crp/ayugram-desktop";
 
-    freesmlauncher.url = "github:fractal/FreesmLauncher";
+    freesmlauncher.url = "github:FreesmTeam/FreesmLauncher";
     zapret-discord-youtube.url = "github:kartavkun/zapret-discord-youtube";
 
     nixvim.url = "github:nix-community/nixvim";
@@ -73,7 +73,7 @@
             backupFileExtension = ".bck";
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.fractal = import ./home/default.nix;
+            users.kaeeraa = import ./home/default.nix;
             extraSpecialArgs = {inherit inputs system settings;};
           };
         }

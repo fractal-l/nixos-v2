@@ -15,7 +15,7 @@
       "/etc/ssh/ssh_host_ed25519_key.pub"
     ];
 
-    users.fractal = {
+    users.kaeeraa = {
       directories = [
         "Documents"
         "Downloads"

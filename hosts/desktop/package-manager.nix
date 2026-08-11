@@ -22,7 +22,7 @@
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       ];
 
-      trusted-users = ["root" "fractal"];
+      trusted-users = ["root" "kaeeraa"];
     };
 
     gc = {

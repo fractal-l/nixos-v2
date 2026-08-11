@@ -1,8 +1,8 @@
 {pkgs, ...}: let
   keyFile = "/var/lib/sops-nix/age.key";
   mkUserKeySecret = name: {
-    path = "/home/fractal/.ssh/${name}";
-    owner = "fractal";
+    path = "/home/kaeeraa/.ssh/${name}";
+    owner = "kaeeraa";
     mode = "0600";
   };
 in {

@@ -10,7 +10,7 @@
         identitiesOnly = true;
       };
       alpha-vds = {
-        user = "fractal";
+        user = "kaeeraa";
         identityFile = "~/.ssh/alpha-vds.ed25519";
         identitiesOnly = true;
         include = "~/.ssh/alpha-vds-hostname";
