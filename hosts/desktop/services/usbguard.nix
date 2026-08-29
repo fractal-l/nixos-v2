@@ -25,6 +25,9 @@
       allow id 2d99:e055 serial "USBCompositeDevice" name "EDIFIER W830NB" hash "eTzQjmvGWueAODl3BEHiqYkXVrFZDKaBuSSmtemUV6c=" parent-hash "3diggCc+UIkz1I9skI/9PxceyT0kr5r7GL5FqNeqFZg=" via-port "1-5.2" with-interface { 01:01:00 01:02:00 01:02:00 01:02:00 01:02:00 01:02:00 01:02:00 03:00:00 } with-connect-type "unknown"
       allow id 2d99:e055 serial "USBCompositeDevice" name "EDIFIER W830NB" hash "eTzQjmvGWueAODl3BEHiqYkXVrFZDKaBuSSmtemUV6c=" parent-hash "5Ab7xmb4dhkTvl5F82TpmJ/SjPC0gQJE3U3C1N9NBgM="
       allow id 2341:0043 serial "24238313136351914180" name "" hash "PuUtdXcDYcewfiP1j/Q/WuYTjhuukCDGuhTWki3d3U4=" parent-hash "4JN/q7j8G1v5ObPqMaeG524CpKYR/flBUJppBD9zoks="
+      allow id 19d2:0256 serial "" name "ZTE BootLoader" hash "UPnVYJ9pZ0k5gLIqMmEGP2xJNXqNthurM7AirFHSd6U=" parent-hash "4JN/q7j8G1v5ObPqMaeG524CpKYR/flBUJppBD9zoks="
+      allow id 14cd:1212 serial "121220160204" name "Mass Storage Device" hash "lgtMFirccji18ZBe3qoE5v+gna+bRqaed33aqo1KpV0=" parent-hash "4JN/q7j8G1v5ObPqMaeG524CpKYR/flBUJppBD9zoks="
+      allow serial "1234567890ABCDEF"
       reject
     '';
   };

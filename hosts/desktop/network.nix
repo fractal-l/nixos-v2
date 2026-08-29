@@ -49,12 +49,6 @@
     firewall = {
       enable = true;
       allowedUDPPorts = [9];
-      allowedUDPPortRanges = [
-        {
-          from = 50000;
-          to = 65535;
-        }
-      ];
     };
   };
 }

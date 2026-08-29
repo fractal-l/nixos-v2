@@ -72,7 +72,7 @@
       install video1394 /bin/false
     '';
 
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
     blacklistedKernelModules = [
       "dccp"
       "sctp"
@@ -138,10 +138,6 @@
       availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "sdhci_pci"];
       kernelModules = [
         "kvm-amd"
-        "nvidia"
-        "nvidia_modeset"
-        "nvidia_uvm"
-        "nvidia_drm"
       ];
     };
 

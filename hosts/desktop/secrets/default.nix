@@ -7,12 +7,11 @@
   };
 in {
   environment.variables = {"SOPS_AGE_KEY_FILE" = keyFile;};
-  environment.systemPackages = with pkgs; [sops age-plugin-tpm age];
+  environment.systemPackages = with pkgs; [sops age];
   sops = {
     defaultSopsFile = ./secrets.yaml;
 
     age = {
-      plugins = [pkgs.age-plugin-tpm];
       keyFile = keyFile;
     };
 

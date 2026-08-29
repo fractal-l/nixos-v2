@@ -4,8 +4,8 @@
     enableSshSupport = true;
     enableScDaemon = false;
     pinentry = {
-      package = pkgs.pinentry-gtk2;
-      program = "pinentry-gtk-2";
+      package = pkgs.pinentry-gnome3;
+      program = "pinentry-gnome3";
     };
 
     defaultCacheTtlSsh = 1800;
@@ -20,7 +20,7 @@
 
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.openssh}/bin/ssh-add %h/.ssh/id_ed25519";
+      ExecStart = "${pkgs.openssh}/bin/ssh-add %h/.ssh/git-signing.ed25519";
     };
 
     Install = {

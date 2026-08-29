@@ -342,7 +342,46 @@
       };
     };
 
+    extraPlugins = with pkgs.vimPlugins; [
+      base16-nvim
+    ];
+
     extraConfigLua = ''
+      local transparent_groups = {
+        'Normal', 'NormalNC', 'SignColumn', 'LineNr', 'CursorLineNr',
+        'NvimTreeNormal', 'NvimTreeNormalNC',
+        'TelescopeNormal', 'TelescopeBorder',
+        'TelescopePromptNormal', 'TelescopePromptBorder', 'TelescopePromptCounter',
+        'NormalFloat', 'FloatBorder', 'Pmenu',
+      }
+
+      local function apply_matugen()
+        local ok, matugen = pcall(require, 'matugen')
+        if ok then matugen.setup() end
+        for _, group in ipairs(transparent_groups) do
+          local hl = vim.api.nvim_get_hl(0, { name = group })
+          vim.api.nvim_set_hl(0, group, {
+            fg = hl.fg,
+            bg = 'NONE',
+            bold = hl.bold,
+            italic = hl.italic,
+          })
+        end
+      end
+      apply_matugen()
+
+      local matugen_file = vim.fn.stdpath('config') .. '/lua/matugen.lua'
+      local matugen_mtime = vim.fn.getftime(matugen_file)
+      local matugen_timer = vim.uv.new_timer()
+      matugen_timer:start(2000, 2000, vim.schedule_wrap(function()
+        local mtime = vim.fn.getftime(matugen_file)
+        if mtime > matugen_mtime then
+          matugen_mtime = mtime
+          package.loaded['matugen'] = nil
+          apply_matugen()
+        end
+      end))
+
       vim.diagnostic.config({
         virtual_text = true,
         signs = true,

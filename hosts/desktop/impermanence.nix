@@ -30,8 +30,9 @@
         ".steam"
         ".config"
         ".var"
+        ".mozilla"
         ".cache/noctalia"
-        ".local/state/noctalia"
+        ".local/state"
       ];
       files = [
         ".zsh_history"

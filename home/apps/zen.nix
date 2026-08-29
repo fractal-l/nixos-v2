@@ -48,9 +48,9 @@
       };
     };
 
-    profiles.fractal = {
+    profiles.kaeeraa = {
       id = 0;
-      name = "fractal";
+      name = "kaeeraa";
       isDefault = true;
 
       extensions.packages = with inputs.firefox-addons.packages.${system}; [

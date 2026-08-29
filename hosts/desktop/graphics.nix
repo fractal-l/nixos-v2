@@ -14,15 +14,6 @@
     package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };
 
-  services.xserver.config = ''
-    Section "Device"
-        Identifier "NVIDIA Card"
-        Driver "nvidia"
-        Option "Coolbits" "28"
-        Option "RegistryDwords" "EnableBrightnessControl=1"
-    EndSection
-  '';
-
   environment.variables = {
     LIBVA_DRIVER_NAME = "nvidia";
     GBM_BACKEND = "nvidia-drm";

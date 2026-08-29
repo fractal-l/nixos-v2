@@ -24,25 +24,18 @@
   home.packages = with pkgs; [
     inputs.ayugram-desktop.packages.${system}.default
     inputs.freesmlauncher.packages.${system}.default
-    inputs.nix-gaming.packages.${system}.rocket-league
 
     yandex-music
-    obsidian
-    postman
 
     maple-mono.Normal-NF
     nerd-fonts.iosevka
     inter
 
-    gpu-screen-recorder
     devenv
     element-desktop
-    gwe
     opencode
-    opencode-desktop
 
-    bitwarden-cli
-    keyguard
+    orca-slicer
 
     nodejs_latest
     bun

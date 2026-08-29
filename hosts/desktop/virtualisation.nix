@@ -11,6 +11,6 @@
         setSocketVariable = true;
       };
     };
-    containerd.enable = true;
+    containerd.enable = false;
   };
 }

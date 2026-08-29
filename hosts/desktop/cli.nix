@@ -59,15 +59,9 @@
     };
   };
 
-  programs.nix-index = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
   environment.systemPackages = with pkgs; [
     uutils-coreutils-noprefix
 
-    git
     curl
     wget
     jq
@@ -77,9 +71,7 @@
     bat
     fd
     ripgrep
-    zoxide
     fzf
-    tmux
     aria2
 
     bottom
