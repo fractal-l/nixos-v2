@@ -1,7 +1,17 @@
 {pkgs, ...}: let
   keyFile = "/var/lib/sops-nix/age.key";
-  mkUserKeySecret = name: {
-    path = "/home/kaeeraa/.ssh/${name}";
+  keyNames = [
+    "github"
+    "git-signing"
+    "alpha-vds"
+    "router"
+    "belarus_bn"
+    "poland1_bn"
+    "poland2_bn"
+    "billing_bn"
+  ];
+  mkSecret = name: {
+    path = "/home/kaeeraa/.ssh/${name}.ed25519";
     owner = "kaeeraa";
     mode = "0600";
   };
@@ -15,17 +25,6 @@ in {
       keyFile = keyFile;
     };
 
-    secrets = {
-      github = mkUserKeySecret "github.ed25519";
-      git-signing = mkUserKeySecret "git-signing.ed25519";
-      alpha-vds = mkUserKeySecret "alpha-vds.ed25519";
-      router = mkUserKeySecret "router.ed25519";
-      belarus_bn = mkUserKeySecret "belarus_bn.ed25519";
-      poland1_bn = mkUserKeySecret "poland1_bn.ed25519";
-      poland2_bn = mkUserKeySecret "poland2_bn.ed25519";
-      pterodactyl_bn = mkUserKeySecret "pterodactyl_bn.ed25519";
-      hostiq-uni = mkUserKeySecret "hostiq-uni.ed25519";
-      billing_bn = mkUserKeySecret "billing_bn.ed25519";
-    };
+    secrets = builtins.listToAttrs (map (n: {name = n; value = mkSecret n;}) keyNames);
   };
 }

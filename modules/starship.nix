@@ -1,5 +1,4 @@
-{pkgs, ...}: {
-  programs.zsh.enable = true;
+{...}: {
   programs.starship = {
     enable = true;
     settings = {
@@ -57,48 +56,5 @@
         error_symbol = "[❯](bold red)";
       };
     };
-  };
-
-  environment.systemPackages = with pkgs; [
-    uutils-coreutils-noprefix
-
-    curl
-    wget
-    jq
-    yq-go
-
-    eza
-    bat
-    fd
-    ripgrep
-    fzf
-    aria2
-
-    bottom
-    btop-cuda
-    httpie
-    man-pages
-    man-pages-posix
-    fastfetch
-    just
-    libqalculate
-    codex
-  ];
-
-  environment.shellAliases = {
-    ls = "eza --icons --group-directories-first";
-    ll = "eza -lah --icons --group-directories-first";
-    lt = "eza --tree --icons";
-    cat = "bat -p";
-    grep = "rg";
-    find = "fd";
-    j = "just";
-    ff = "fastfetch";
-  };
-
-  environment.variables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
   };
 }

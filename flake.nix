@@ -46,33 +46,12 @@
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
-    nixpkgs,
-    nix-cachyos-kernel,
-    home-manager,
-    sops-nix,
-    mangowm,
-    noctalia-shell,
-    nixvim,
-    zen-browser,
-    firefox-addons,
-    nix-index-database,
-    disko,
-    impermanence,
-    ayugram-desktop,
-    freesmlauncher,
-    nix-flatpak,
-    zapret-discord-youtube,
-    millennium,
-    nix4vscode,
-    nix-gaming,
-    ...
-  } @ inputs: let
+  outputs = {...} @ inputs: let
     system = "x86_64-linux";
     settings = import ./settings.nix;
   in {
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
-    nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+    formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.alejandra;
+    nixosConfigurations.desktop = inputs.nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {inherit settings inputs system;};
 
@@ -85,7 +64,7 @@
         inputs.impermanence.nixosModules.default
         inputs.zapret-discord-youtube.nixosModules.withTestTools
 
-        ./custom
+        ./modules/overlays.nix
         ./hosts/desktop/default.nix
         {
           home-manager = {

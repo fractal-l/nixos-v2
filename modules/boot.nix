@@ -24,7 +24,7 @@
       panicOnChecksumMismatch = true;
 
       style = {
-        wallpapers = [../../static/wallpaper.png];
+        wallpapers = [../static/wallpaper.png];
         wallpaperStyle = "stretched";
         backdrop = "091518";
 
