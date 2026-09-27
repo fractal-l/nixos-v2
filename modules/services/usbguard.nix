@@ -27,6 +27,7 @@
       allow id 2341:0043 serial "24238313136351914180" name "" hash "PuUtdXcDYcewfiP1j/Q/WuYTjhuukCDGuhTWki3d3U4=" parent-hash "4JN/q7j8G1v5ObPqMaeG524CpKYR/flBUJppBD9zoks="
       allow id 19d2:0256 serial "" name "ZTE BootLoader" hash "UPnVYJ9pZ0k5gLIqMmEGP2xJNXqNthurM7AirFHSd6U=" parent-hash "4JN/q7j8G1v5ObPqMaeG524CpKYR/flBUJppBD9zoks="
       allow id 14cd:1212 serial "121220160204" name "Mass Storage Device" hash "lgtMFirccji18ZBe3qoE5v+gna+bRqaed33aqo1KpV0=" parent-hash "4JN/q7j8G1v5ObPqMaeG524CpKYR/flBUJppBD9zoks="
+      allow id 1a86:7523 serial "" name "USB Serial"
       allow serial "1234567890ABCDEF"
       reject
     '';

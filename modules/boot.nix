@@ -72,7 +72,7 @@
       install video1394 /bin/false
     '';
 
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
     blacklistedKernelModules = [
       "dccp"
       "sctp"
