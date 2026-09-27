@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  theme,
+  ...
+}: {
   home.packages = [pkgs.gh];
   programs.delta = {
     enable = true;
@@ -8,7 +12,12 @@
       line-numbers = true;
       side-by-side = true;
       hyperlinks = true;
-      syntax-theme = "gruvbox-dark";
+      dark = true;
+      true-color = "always";
+      syntax-theme = "base16-eighties-dark";
+      commit-style = "bold ${theme.palette.yellow}";
+      file-style = "bold ${theme.palette.blue}";
+      hunk-style = "bold ${theme.palette.magenta}";
     };
   };
   programs.git = {

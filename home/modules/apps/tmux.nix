@@ -24,15 +24,16 @@
       ### --- core look ---
       set -g status on
       set -g status-interval 2
-      set -g status-style bg=default,fg=colour250
+      set -g status-style bg=default,fg=#A8A499
+      set -as terminal-features ',*:RGB'
 
       ### --- window style ---
       setw -g window-status-format " #I:#W "
-      setw -g window-status-current-format " #[bold]#I:#W "
+      setw -g window-status-current-format " #[fg=#A3B98C,bold]#I:#W "
 
       ### --- pane borders ---
-      set -g pane-border-style fg=colour237
-      set -g pane-active-border-style fg=colour39
+      set -g pane-border-style fg=#2E2C29
+      set -g pane-active-border-style fg=#A3B98C
 
       ### --- splits (zellij-like UX) ---
       bind | split-window -h
@@ -53,8 +54,8 @@
       bind -T copy-mode-vi y send -X copy-selection
 
       ### --- status content (clean + useful) ---
-      set -g status-left "#[fg=green] #S "
-      set -g status-right "#[fg=cyan]%Y-%m-%d #[fg=yellow]%H:%M"
+      set -g status-left "#[fg=#A3B98C] #S "
+      set -g status-right "#[fg=#787468]%Y-%m-%d #[fg=#A8A499]%H:%M"
 
       ### --- better UX ---
       set -g renumber-windows on

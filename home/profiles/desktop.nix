@@ -1,5 +1,6 @@
 {
   imports = [
+    ../modules/theme.nix
     ../modules/wm.nix
     ../modules/cli.nix
     ../modules/packages/comms.nix

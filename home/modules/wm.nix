@@ -1,6 +1,7 @@
 {
   lib,
   settings,
+  theme,
   config,
   system,
   pkgs,
@@ -17,11 +18,9 @@ in {
   imports = [inputs.mangowm.hmModules.mango];
   wayland.windowManager.mango = {
     enable = true;
-    bottomPrefixes = ["source"];
-    extraConfig = ''
-      source=${config.home.homeDirectory}/.config/mango/noctalia.conf
-    '';
-    settings = {
+    settings = let
+      m = theme.mango;
+    in {
       monitorrule = [
         "name:DP-1,width:1920,height:1080,refresh:165,x:0,y:0,vrr:1"
         "name:DVI-D-1,width:1920,height:1080,refresh:60,x:1920,y:0,vrr:0"
@@ -78,31 +77,56 @@ in {
       borderpx = 1;
       border_radius = 12;
 
+      # -- colors (from the central theme) --
+      rootcolor = m.rootcolor;
+      bordercolor = m.bordercolor;
+      focuscolor = m.focuscolor;
+      urgentcolor = m.urgentcolor;
+      splitcolor = m.splitcolor;
+      dropcolor = m.dropcolor;
+
+      maximizescreencolor = m.maximizescreencolor;
+      scratchpadcolor = m.scratchpadcolor;
+      globalcolor = m.globalcolor;
+      overlaycolor = m.overlaycolor;
+
+      jump_label_decorate_fg_color = m.jump.fg;
+      jump_label_decorate_bg_color = m.jump.bg;
+      jump_label_decorate_focus_fg_color = m.jump.focus-fg;
+      jump_label_decorate_focus_bg_color = m.jump.focus-bg;
+      jump_label_decorate_border_color = m.jump.border;
+
+      group_bar_decorate_fg_color = m.group.fg;
+      group_bar_decorate_bg_color = m.group.bg;
+      group_bar_decorate_focus_fg_color = m.group.focus-fg;
+      group_bar_decorate_focus_bg_color = m.group.focus-bg;
+      group_bar_decorate_border_color = m.group.border;
+
       blur = 1;
       blur_layer = 0;
       blur_optimized = 1;
-      blur_params_num_passes = 1;
-      blur_params_radius = 6;
-      blur_params_noise = 0.01;
-      blur_params_brightness = 0.95;
-      blur_params_contrast = 0.95;
-      blur_params_saturation = 1.1;
+      blur_params_num_passes = 2;
+      blur_params_radius = 5;
+      blur_params_noise = 0.02;
+      blur_params_brightness = 0.9;
+      blur_params_contrast = 0.9;
+      blur_params_saturation = 1.0;
 
       layer_animations = 0;
-      shadows = 0;
+      shadows = 1;
       layer_shadows = 0;
-      shadow_only_floating = 1;
-      shadows_size = 20;
-      shadows_blur = 25;
-      shadows_position_x = 0;
-      shadows_position_y = 5;
-      shadowscolor = "0x1d2021cc";
+      shadow_only_floating = 0;
+      shadows_size = 4;
+      shadows_blur = 12;
+      shadows_position_x = 2;
+      shadows_position_y = 2;
+      shadowscolor = "0x000000ff";
 
       focused_opacity = 1;
       unfocused_opacity = 0.92;
 
-      cursor_size = 16;
-      cursor_theme = "GoogleDot-Black";
+      cursor_size = theme.cursor.size;
+      cursor_theme = theme.cursor.name;
 
       env = [
         "NIXOS_OZONE_WL,1"
@@ -117,7 +141,7 @@ in {
         "GDK_DPI_SCALE,1.2"
         "GDK_BACKEND,wayland"
 
-        "XCURSOR_SIZE,16"
+        "XCURSOR_SIZE,${toString theme.cursor.size}"
 
         "__GL_SHADER_DISK_CACHE,1"
         "__GL_SHADER_DISK_CACHE_PATH,$HOME/.nv/GLCache"
@@ -196,7 +220,4 @@ in {
       ];
     };
   };
-  home.packages = with pkgs; [
-    google-cursor
-  ];
 }

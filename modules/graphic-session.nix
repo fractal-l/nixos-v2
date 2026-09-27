@@ -8,6 +8,14 @@
     enable = true;
     wlr.enable = true;
 
+    # Mango advertises XDG_CURRENT_DESKTOP=mango, so pin its backends
+    # explicitly: screencast/screenshots via wlr, everything else via gtk.
+    config.mango = {
+      default = ["gtk"];
+      "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
+      "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
+    };
+
     extraPortals = [
       pkgs.xdg-desktop-portal-wlr
       pkgs.xdg-desktop-portal-gtk
@@ -18,6 +26,13 @@
       pkgs.xdg-desktop-portal-gtk
     ];
   };
+
+  # xdg-desktop-portal-wlr has no built-in source picker: it execs
+  # slurp/wofi/rofi/... and fails silently if none is installed.
+  # slurp is the first choice it tries and the lightest one.
+  environment.systemPackages = with pkgs; [
+    slurp
+  ];
 
   services.blueman.enable = true;
 

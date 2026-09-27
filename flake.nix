@@ -49,11 +49,12 @@
   outputs = {...} @ inputs: let
     system = "x86_64-linux";
     settings = import ./settings.nix;
+    theme = import ./theme.nix;
   in {
     formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.alejandra;
     nixosConfigurations.desktop = inputs.nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = {inherit settings inputs system;};
+      specialArgs = {inherit settings theme inputs system;};
 
       modules = [
         inputs.sops-nix.nixosModules.sops
@@ -72,7 +73,7 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             users.kaeeraa = import ./home/default.nix;
-            extraSpecialArgs = {inherit inputs system settings;};
+            extraSpecialArgs = {inherit inputs system settings theme;};
           };
         }
       ];

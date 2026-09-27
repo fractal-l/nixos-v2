@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  theme,
   ...
 }: {
   programs.vscode = {
@@ -9,9 +10,6 @@
 
     profiles.default = {
       extensions = pkgs.nix4vscode.forVscode [
-        "jdinhlife.gruvbox"
-        "pkief.material-icon-theme"
-
         "jnoortheen.nix-ide"
         "ms-python.python"
         "ms-python.vscode-pylance"
@@ -53,18 +51,15 @@
         "platformio.platformio-ide"
 
         "inferrinizzard.prettier-sql-vscode"
-
-        "noctalia.noctaliatheme"
       ];
       userSettings = {
         "window.zoomLevel" = 0;
-        "workbench.colorTheme" = "Gruvbox Dark Hard";
-        "workbench.iconTheme" = "material-icon-theme";
+        "workbench.colorTheme" = "Default Dark Modern";
         "workbench.startupEditor" = "none";
         "window.titleBarStyle" = "custom";
         "window.commandCenter" = false;
 
-        "editor.fontFamily" = "Maple Mono Normal NF";
+        "editor.fontFamily" = theme.fonts.mono;
         "editor.fontSize" = lib.mkForce 16;
         "editor.lineHeight" = 1.2;
         "editor.fontWeight" = 500;
@@ -147,6 +142,149 @@
         "explorer.compactFolders" = false;
         "workbench.list.smoothScrolling" = true;
         "keyboard.dispatch" = "keyCode";
+
+        # -- theme: workbench chrome --
+        "workbench.colorCustomizations" = {
+          "focusBorder" = theme.palette.accent;
+          "border" = theme.palette.border;
+          "widget.shadow" = "#00000066";
+
+          "editor.background" = theme.palette.bg;
+          "editor.foreground" = theme.palette.fg;
+          "editor.lineHighlightBackground" = theme.palette.surface;
+          "editorLineNumber.foreground" = theme.palette.fg-dim;
+          "editorLineNumber.activeForeground" = theme.palette.fg-muted;
+          "editorCursor.foreground" = theme.palette.accent;
+          "editor.selectionBackground" = "${theme.palette.accent}55";
+          "editor.selectionHighlightBackground" = "${theme.palette.border}88";
+          "editorIndentGuide.background" = theme.palette.border;
+          "editorGroup.border" = theme.palette.border;
+          "editorGroupHeader.tabsBackground" = theme.palette.surface;
+          "editorWidget.background" = theme.palette.overlay;
+          "editorWidget.border" = theme.palette.border;
+          "editorSuggestWidget.background" = theme.palette.overlay;
+          "editorSuggestWidget.selectedBackground" = theme.palette.border;
+          "editorHoverWidget.background" = theme.palette.overlay;
+
+          "editorGutter.addedBackground" = theme.palette.accent;
+          "editorGutter.modifiedBackground" = theme.palette.yellow;
+          "editorGutter.deletedBackground" = theme.palette.red;
+          "editorError.foreground" = theme.palette.red;
+          "editorWarning.foreground" = theme.palette.yellow;
+          "editorInfo.foreground" = theme.palette.blue;
+
+          "sideBar.background" = theme.palette.surface;
+          "sideBar.border" = theme.palette.border;
+          "activityBar.background" = theme.palette.surface;
+          "activityBar.border" = theme.palette.border;
+          "activityBar.foreground" = theme.palette.fg;
+          "activityBar.inactiveForeground" = theme.palette.fg-dim;
+          "titleBar.activeBackground" = theme.palette.surface;
+          "statusBar.background" = theme.palette.surface;
+          "statusBar.border" = theme.palette.border;
+          "statusBar.foreground" = theme.palette.fg-muted;
+          "panel.background" = theme.palette.surface;
+          "panel.border" = theme.palette.border;
+
+          "tab.activeBackground" = theme.palette.bg;
+          "tab.inactiveBackground" = theme.palette.surface;
+          "tab.border" = theme.palette.border;
+          "tab.activeBorderTop" = theme.palette.accent;
+
+          "list.activeSelectionBackground" = theme.palette.border-hi;
+          "list.activeSelectionForeground" = theme.palette.fg;
+          "list.inactiveSelectionBackground" = theme.palette.border;
+          "list.hoverBackground" = theme.palette.border;
+          "list.focusOutline" = theme.palette.accent;
+
+          "input.background" = theme.palette.bg;
+          "input.border" = theme.palette.border;
+          "inputValidation.errorBorder" = theme.palette.red;
+          "inputValidation.warningBorder" = theme.palette.yellow;
+          "inputValidation.infoBorder" = theme.palette.blue;
+          "dropdown.background" = theme.palette.overlay;
+          "dropdown.border" = theme.palette.border;
+          "menu.background" = theme.palette.overlay;
+          "menu.border" = theme.palette.border;
+          "menu.selectionBackground" = theme.palette.border-hi;
+          "notification.background" = theme.palette.overlay;
+          "notification.border" = theme.palette.border;
+
+          "badge.background" = theme.palette.border-hi;
+          "badge.foreground" = theme.palette.fg;
+          "button.background" = theme.palette.accent;
+          "button.foreground" = theme.palette.bg;
+          "button.hoverBackground" = theme.palette.accent-dim;
+          "button.secondaryBackground" = theme.palette.border-hi;
+          "button.secondaryForeground" = theme.palette.fg;
+          "progressBar.background" = theme.palette.accent;
+          "scrollbarSlider.background" = "${theme.palette.border-hi}88";
+          "scrollbarSlider.hoverBackground" = "${theme.palette.border-hi}aa";
+          "scrollbarSlider.activeBackground" = theme.palette.accent;
+
+          "gitDecoration.addedResourceForeground" = theme.palette.accent;
+          "gitDecoration.modifiedResourceForeground" = theme.palette.yellow;
+          "gitDecoration.deletedResourceForeground" = theme.palette.red;
+          "gitDecoration.untrackedResourceForeground" = theme.palette.blue;
+          "gitDecoration.ignoredResourceForeground" = theme.palette.fg-dim;
+
+          "terminal.foreground" = theme.palette.fg;
+          "terminal.selectionBackground" = "${theme.palette.accent}55";
+          "terminalCursor.foreground" = theme.palette.accent;
+          "terminal.ansiBlack" = theme.ansi.normal.black;
+          "terminal.ansiRed" = theme.ansi.normal.red;
+          "terminal.ansiGreen" = theme.ansi.normal.green;
+          "terminal.ansiYellow" = theme.ansi.normal.yellow;
+          "terminal.ansiBlue" = theme.ansi.normal.blue;
+          "terminal.ansiMagenta" = theme.ansi.normal.magenta;
+          "terminal.ansiCyan" = theme.ansi.normal.cyan;
+          "terminal.ansiWhite" = theme.ansi.normal.white;
+          "terminal.ansiBrightBlack" = theme.ansi.bright.black;
+          "terminal.ansiBrightRed" = theme.ansi.bright.red;
+          "terminal.ansiBrightGreen" = theme.ansi.bright.green;
+          "terminal.ansiBrightYellow" = theme.ansi.bright.yellow;
+          "terminal.ansiBrightBlue" = theme.ansi.bright.blue;
+          "terminal.ansiBrightMagenta" = theme.ansi.bright.magenta;
+          "terminal.ansiBrightCyan" = theme.ansi.bright.cyan;
+          "terminal.ansiBrightWhite" = theme.ansi.bright.white;
+        };
+
+        # -- theme: syntax --
+        "editor.tokenColorCustomizations" = {
+          textMateRules = [
+            {
+              scope = "comment";
+              settings = {
+                foreground = theme.palette.fg-dim;
+                fontStyle = "italic";
+              };
+            }
+            {
+              scope = ["string" "string.quoted" "constant.character"];
+              settings.foreground = theme.palette.accent;
+            }
+            {
+              scope = ["keyword" "storage" "variable.language"];
+              settings.foreground = theme.palette.blue;
+            }
+            {
+              scope = ["constant.numeric" "constant.language"];
+              settings.foreground = theme.palette.yellow;
+            }
+            {
+              scope = ["entity.name.type" "support.type" "entity.name.class"];
+              settings.foreground = theme.palette.orange;
+            }
+            {
+              scope = ["entity.name.function" "support.function" "meta.function-call"];
+              settings.foreground = theme.palette.fg;
+            }
+            {
+              scope = ["variable" "meta.variable"];
+              settings.foreground = theme.palette.fg;
+            }
+          ];
+        };
 
         "eslint.lintTask.enable" = true;
         "eslint.format.enable" = true;

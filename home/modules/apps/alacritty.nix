@@ -1,10 +1,15 @@
 {
+  theme,
+  ...
+}: let
+  p = theme.palette;
+  a = theme.ansi;
+in {
   programs.alacritty = {
     enable = true;
 
     settings = {
       general = {
-        import = ["~/.config/alacritty/themes/noctalia.toml"];
         live_config_reload = true;
       };
 
@@ -17,7 +22,7 @@
 
         dynamic_padding = true;
         decorations = "None";
-        opacity = 0.1;
+        opacity = 0.9;
         blur = true;
         startup_mode = "Windowed";
         dynamic_title = true;
@@ -30,7 +35,7 @@
 
       font = {
         normal = {
-          family = "Iosevka NFM";
+          family = theme.fonts.mono;
           style = "Medium";
         };
 
@@ -65,6 +70,23 @@
 
       mouse.hide_when_typing = true;
       terminal.osc52 = "CopyPaste";
+
+      colors = {
+        primary = {
+          background = p.bg;
+          foreground = p.fg;
+        };
+        cursor = {
+          cursor = p.accent;
+          text = p.bg;
+        };
+        selection = {
+          background = p.accent;
+          text = p.bg;
+        };
+        normal = a.normal;
+        bright = a.bright;
+      };
 
       keyboard.bindings = [
         {

@@ -3,150 +3,68 @@
   lib,
   system,
   inputs,
+  theme,
   ...
-}: let
-  #  alacritty-bin = lib.getExe pkgs.alacritty;
-  #  wl-paste = lib.getExe' pkgs.wl-clipboard "wl-paste";
-  #  cliphist-bin = lib.getExe pkgs.cliphist;
-  noctalia-shell-bin = lib.getExe inputs.noctalia-shell.packages.${system}.default;
-in {
+}: {
   imports = [inputs.noctalia-shell.homeModules.default];
 
   programs.noctalia = {
     enable = true;
-    #    settings = {
-    #      dock.enabled = false;
-    #      bar = {
-    #        position = "top";
-    #        density = "compact";
-    #        showCapsule = true;
-    #        enableExclusionZoneInset = true;
-    #        useSeparateOpacity = false;
-    #        backgroundOpacity = 0.6;
-    #        widgets = {
-    #          left = [
-    #            {
-    #              id = "MediaMini";
-    #              enableVisualizer = true;
-    #              visualizerType = "wave";
-    #            }
-    #          ];
-    #          center = [
-    #            {
-    #              id = "Workspace";
-    #              labelMode = "none";
-    #              hideUnoccupied = false;
-    #            }
-    #          ];
-    #          right = [
-    #            {id = "Tray";}
-    #            {
-    #              id = "Clock";
-    #              formatHorizontal = "HH:mm";
-    #              useMonospacedFont = true;
-    #            }
-    #          ];
-    #        };
-    #      };
-    #
-    #      general = {
-    #        scaleRation = 1.1;
-    #        animationDisabled = true;
-    #        radiusRatio = 0.6;
-    #        enableShadows = false;
-    #        enableBlurBehind = true;
-    #        lockOnSuspend = true;
-    #        showHibernateOnLockScreen = true;
-    #      };
-    #
-    #      ui = {
-    #        fontDefault = "Iosevka NF";
-    #        fontFixed = "Iosevka NFM";
-    #        fontDefaultScale = 1.2;
-    #        fontFixedScale = 1.2;
-    #        panelBackgroundOpacity = 0.6;
-    #        tooltipsEnabled = true;
-    #        scrollbarAlwaysVisible = false;
-    #      };
-    #
-    #      appLauncher = {
-    #        position = "center";
-    #        sortByMostUsed = true;
-    #        terminalCommand = "${alacritty-bin} -e";
-    #        enableClipboardHistory = true;
-    #        clipboardWatchTextCommand = "${wl-paste} --type text --watch ${cliphist-bin} store";
-    #      };
-    #
-    #      controlCenter = {
-    #        position = "close_to_bar_button";
-    #        shortcuts = {
-    #          left = [{id = "Network";} {id = "Bluetooth";}];
-    #          right = [{id = "Notifications";} {id = "PowerProfile";}];
-    #        };
-    #      };
-    #
-    #      notifications = {
-    #        enabled = true;
-    #        location = "top_center";
-    #        density = "compact";
-    #        enableMarkdown = true;
-    #        backgroundOpacity = 0.6;
-    #        lowUrgencyDuration = 1.5;
-    #        normalUrgencyDuration = 2;
-    #        criticalUrgencyDuration = 3;
-    #        saveToHistory = {
-    #          low = true;
-    #          normal = true;
-    #          critical = true;
-    #        };
-    #        sounds = {
-    #          enabled = true;
-    #          volume = 0.2;
-    #        };
-    #        enableKeyboardLayoutToast = false;
-    #      };
-    #
-    #      osd = {
-    #        enabled = true;
-    #        location = "center";
-    #        autoHideMs = 1000;
-    #        backgroundOpacity = 0.6;
-    #      };
-    #
-    #      colorSchemes.predefinedScheme = "Gruvbox";
-    #      templates.activeTemplates = ["Alacritty" "btop" "GTK" "Qt" "Telegram" "VSCode" "Zen Browser"];
-    #
-    #      brightness.enableDdcSupport = true;
-    #
-    #      location = {
-    #        name = "Tula, Russia";
-    #        autoLocate = false;
-    #        weatherEnabled = true;
-    #        useFahrenheit = false;
-    #      };
-    #
-    #      nightLight.enabled = true;
-    #    };
+
+    # The palette lives in the central theme and is materialized as
+    # ~/.config/noctalia/palettes/ash.json.
+    customPalettes.${theme.name} = theme.noctalia;
+
+    settings = let
+      p = theme.palette;
+    in {
+      theme = {
+        source = "custom";
+        custom_palette = theme.name;
+      };
+
+      shell = {
+        font_family = theme.fonts.sans;
+        # Structure through hairline outlines, not heavy fills.
+        button_borders = true;
+        input_borders = true;
+        popup_borders = true;
+        card_borders = true;
+        # Compositor-level window shadows are enabled in mango; keep shell
+        # surfaces themselves flat (see the mango <--> noctalia interplay).
+        popup_shadows = true;
+      };
+
+      shell.panel = {
+        transparency_mode = "soft";
+        shadow = false;
+      };
+
+      bar.default = {
+        position = "top";
+        # Thin, edge-to-edge, square: a quiet strip across the top.
+        thickness = 30;
+        margin_ends = 0;
+        radius = 0;
+        concave_edge_corners = false;
+        background_opacity = 0.85;
+        border = "outline";
+        border_width = 1.0;
+        shadow = false;
+        contact_shadow = false;
+      };
+
+      notification = {
+        background_opacity = 0.9;
+        border = true;
+      };
+
+      wallpaper = {
+        default.path = "color:${p.bg}";
+        fill_color = p.bg;
+      };
+    };
   };
-  #  systemd.user.services.lockBeforeSleep = {
-  #    Unit = {
-  #      Description = "lock noctalia before sleep";
-  #    };
-  #
-  #    Service = {
-  #      Type = "simple";
-  #      ExecStart = "${pkgs.writeShellScript "noctalia-lock-sleep" ''
-  #        ${pkgs.dbus}/bin/dbus-monitor --system \
-  #          "type='signal',interface='org.freedesktop.login1.Manager',member='PrepareForSleep'" | \
-  #        while read -r line; do
-  #          if echo "$line" | grep -q "boolean true"; then
-  #            ${noctalia-shell-bin} msg session lock
-  #          fi
-  #        done
-  #      ''}";
-  #      Restart = "always";
-  #    };
-  #  };
 
   home.packages = with pkgs; [
     mpvpaper

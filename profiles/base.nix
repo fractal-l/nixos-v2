@@ -2,7 +2,6 @@
   imports = [
     ../modules/boot.nix
     ../modules/zsh.nix
-    ../modules/starship.nix
     ../modules/cli-tools.nix
     ../modules/locale.nix
     ../modules/package-manager.nix

@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  theme,
   ...
 }: {
   boot = {
@@ -24,26 +25,24 @@
       panicOnChecksumMismatch = true;
 
       style = {
-        wallpapers = [../static/wallpaper.png];
-        wallpaperStyle = "stretched";
-        backdrop = "091518";
+        backdrop = "${builtins.substring 1 6 theme.palette.bg}";
 
         interface = {
           branding = "fractal desktop";
-          brandingColor = "6";
+          brandingColor = "${builtins.substring 1 6 theme.palette.accent}";
           helpHidden = false;
           resolution = null;
         };
 
         graphicalTerminal = {
-          palette = "334a50;ffb4ab;73daa5;90d5ae;83d3e3;73daa5;90d5ae;d8e5e8";
-          brightPalette = "7c959a;ffb4ab;73daa5;90d5ae;83d3e3;73daa5;90d5ae;d8e5e8";
+          palette = "${builtins.substring 1 6 theme.palette.surface};${builtins.substring 1 6 theme.palette.red};${builtins.substring 1 6 theme.palette.accent};${builtins.substring 1 6 theme.palette.yellow};${builtins.substring 1 6 theme.palette.blue};${builtins.substring 1 6 theme.palette.magenta};${builtins.substring 1 6 theme.palette.cyan};${builtins.substring 1 6 theme.palette.fg-muted}";
+          brightPalette = "${builtins.substring 1 6 theme.palette.fg-dim};${builtins.substring 1 6 theme.ansi.bright.red};${builtins.substring 1 6 theme.ansi.bright.green};${builtins.substring 1 6 theme.ansi.bright.yellow};${builtins.substring 1 6 theme.ansi.bright.blue};${builtins.substring 1 6 theme.ansi.bright.magenta};${builtins.substring 1 6 theme.ansi.bright.cyan};${builtins.substring 1 6 theme.palette.fg}";
 
-          foreground = "d8e5e8";
-          background = "091518";
+          foreground = "${builtins.substring 1 6 theme.palette.fg}";
+          background = "${builtins.substring 1 6 theme.palette.bg}";
 
-          brightForeground = "d8e5e8";
-          brightBackground = "091518";
+          brightForeground = "${builtins.substring 1 6 theme.palette.fg}";
+          brightBackground = "${builtins.substring 1 6 theme.palette.bg}";
 
           font = {
             scale = null;

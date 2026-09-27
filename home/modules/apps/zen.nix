@@ -42,9 +42,6 @@
 
         "browser.search.defaultenginename" = "DuckDuckGo";
         "browser.urlbar.defaultenginename" = "DuckDuckGo";
-
-        # noctalia
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
     };
 

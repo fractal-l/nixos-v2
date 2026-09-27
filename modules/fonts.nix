@@ -1,7 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  theme,
+  ...
+}: {
   fonts.packages = with pkgs; [
     inter
-    maple-mono.Normal-NF
     nerd-fonts.iosevka
   ];
   fonts.fontDir.enable = true;
@@ -9,9 +12,16 @@
     enable = true;
     cache32Bit = true;
     defaultFonts = {
-      serif = ["Inter"];
-      sansSerif = ["Inter"];
-      monospace = ["Maple Mono Normal NF"];
+      serif = [theme.fonts.sans];
+      sansSerif = [theme.fonts.sans];
+      monospace = [theme.fonts.mono];
     };
   };
+
+  # Cursor theme and icon theme must be installed system-wide so the
+  # greeter (running as the greetd user) can resolve them.
+  environment.systemPackages = with pkgs; [
+    capitaine-cursors
+    adwaita-icon-theme
+  ];
 }

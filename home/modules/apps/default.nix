@@ -14,5 +14,6 @@
     ./yazi.nix
     ./tmux.nix
     ./vesktop.nix
+    ./btop.nix
   ];
 }
