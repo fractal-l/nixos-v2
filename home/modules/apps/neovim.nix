@@ -59,7 +59,7 @@
 
     colorschemes.base16 = {
       enable = true;
-      customColorScheme = {
+      colorscheme = {
         base00 = theme.palette.bg;
         base01 = theme.palette.surface;
         base02 = theme.palette.overlay;
