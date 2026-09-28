@@ -7,7 +7,6 @@
 }: let
   p = theme.palette;
 in {
-  # Cursor (Wayland + Xwayland + GTK).
   home.pointerCursor = {
     name = theme.cursor.name;
     package = pkgs.capitaine-cursors;
@@ -16,7 +15,6 @@ in {
     x11.enable = true;
   };
 
-  # GTK 3.
   gtk = {
     enable = true;
     theme = {
@@ -33,7 +31,6 @@ in {
     };
   };
 
-  # GTK 4 / libadwaita and everything else that reads GNOME settings.
   dconf.settings."org/gnome/desktop/interface" = {
     color-scheme = "prefer-dark";
     gtk-theme = "adw-gtk3-dark";

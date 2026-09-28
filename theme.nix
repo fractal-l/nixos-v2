@@ -1,11 +1,7 @@
-# "ash": warm charcoal neutrals, one sage accent. Contrast-verified
-# palette (fg 12.75, muted 7.5, dim 4.0, accent 8.8). Pure data +
-# derivation helpers, shared via the `theme` special arg.
 rec {
   name = "ash";
 
   palette = rec {
-    # Neutral ramp — warm charcoal (OKLCH hue ~85°, chroma <= 0.006).
     bg = "#131211"; # deepest: terminals, editors, wallpaper
     surface = "#1B1A18"; # bar, window chrome, app surfaces
     overlay = "#232220"; # cards, popovers, menus
@@ -16,7 +12,6 @@ rec {
     fg-muted = "#A8A499"; # secondary text
     fg-dim = "#787468"; # hints, comments
 
-    # Single accent + low-chroma status hues.
     accent = "#A3B98C"; # sage
     accent-dim = "#6E7F5C"; # decorative / secondary accent uses
     red = "#C97268";
@@ -29,7 +24,6 @@ rec {
     shadow = "#0C0B0A";
   };
 
-  # Terminal ANSI palette (normal + bright).
   ansi = {
     normal = {
       black = palette.surface;
@@ -63,9 +57,6 @@ rec {
     size = 22;
   };
 
-  # ----------------------------------------------------------------------
-  # Derived per-application color structures.
-
   # Mango compositor colors (0xRRGGBBAA strings).
   mango = let
     p = palette;
@@ -97,8 +88,7 @@ rec {
     };
   };
 
-  # noctalia-shell custom palette (JSON under ~/.config/noctalia/palettes/):
-  # m*-prefixed role keys + a `terminal` block.
+  # noctalia-shell custom palette: m*-prefixed roles + a `terminal` block.
   noctalia = let
     p = palette;
     a = ansi;

@@ -77,7 +77,6 @@ in {
       borderpx = 1;
       border_radius = 12;
 
-      # -- colors (from the central theme) --
       rootcolor = m.rootcolor;
       bordercolor = m.bordercolor;
       focuscolor = m.focuscolor;
