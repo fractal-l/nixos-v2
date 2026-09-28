@@ -107,10 +107,6 @@
       "vivid"
     ];
     kernelParams = [
-      # Silent S3 resume hangs on AMD boards are often caused by PCIe link
-      # retraining on wakeup; disabling ASPM is the standard diagnostic fix.
-      # Revisit: drop this if resume becomes reliable without it.
-      "pcie_aspm=off"
       "usbcore.quirks=5566:0008:gki"
       "vt.global_cursor_default=0"
       "quiet"
@@ -152,7 +148,9 @@
       "dev.tty.ldisc_autoload" = 0;
       "vm.unprivileged_userfaultfd" = 0;
       "kernel.kexec_load_disabled" = 1;
-      "kernel.sysrq" = 4;
+      # TEMPORARY diagnostic: full Magic SysRq to test if the kernel is
+      # alive during a black-screen hang (REISUB). Revert to 4 afterwards.
+      "kernel.sysrq" = 1;
       "kernel.unprivileged_userns_clone" = 1;
       "kernel.perf_event_paranoid" = 3;
       "net.ipv4.tcp_syncookies" = 1;
