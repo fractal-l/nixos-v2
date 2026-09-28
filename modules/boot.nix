@@ -107,11 +107,6 @@
       "vivid"
     ];
     kernelParams = [
-      # Diagnostic for silent S3 resume hangs: skip saving/restoring ACPI
-      # NVS memory across suspend. Corrupt NVS restore hangs the machine
-      # before the kernel can log anything (no SSH, no SysRq, no signal).
-      # Revisit: drop this if resume becomes reliable without it.
-      "acpi_sleep=nonvs"
       "usbcore.quirks=5566:0008:gki"
       "vt.global_cursor_default=0"
       "quiet"
