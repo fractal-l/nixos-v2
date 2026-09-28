@@ -129,7 +129,11 @@
 
   services.logind.settings = {
     Login = {
-      IdleAction = "hybrid-sleep";
+      # Plain suspend only: the 2G swapfile can never hold a hibernate
+      # image of a desktop session, so hybrid-sleep's disk phase always
+      # fails and is a known source of wake-up problems. Keep the RAM-only
+      # path (SuspendState=mem in modules/power.nix).
+      IdleAction = "suspend";
       IdleActionSec = "30min";
     };
   };
