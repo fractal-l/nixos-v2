@@ -14,7 +14,6 @@ in {
   };
 
   xdg.configFile."btop/themes/${theme.name}.theme".text = ''
-    # ash — generated from the central NixOS theme.
     theme[main_bg]="${p.bg}"
     theme[main_fg]="${p.fg}"
     theme[title]="${p.fg}"

@@ -8,8 +8,6 @@
     enable = true;
     wlr.enable = true;
 
-    # Mango advertises XDG_CURRENT_DESKTOP=mango, so pin its backends
-    # explicitly: screencast/screenshots via wlr, everything else via gtk.
     config.mango = {
       default = ["gtk"];
       "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
@@ -27,9 +25,7 @@
     ];
   };
 
-  # xdg-desktop-portal-wlr has no built-in source picker: it execs
-  # slurp/wofi/rofi/... and fails silently if none is installed.
-  # slurp is the first choice it tries and the lightest one.
+  # Source picker required by xdg-desktop-portal-wlr.
   environment.systemPackages = with pkgs; [
     slurp
   ];
@@ -129,10 +125,7 @@
 
   services.logind.settings = {
     Login = {
-      # Plain suspend only: the 2G swapfile can never hold a hibernate
-      # image of a desktop session, so hybrid-sleep's disk phase always
-      # fails and is a known source of wake-up problems. Keep the RAM-only
-      # path (SuspendState=mem in modules/power.nix).
+      # No hybrid-sleep: the 2G swapfile can't hold a hibernate image.
       IdleAction = "suspend";
       IdleActionSec = "30min";
     };

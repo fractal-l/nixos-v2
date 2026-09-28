@@ -10,12 +10,7 @@
     modesetting.enable = true;
     powerManagement.enable = true;
 
-    # NOTE: Resizable BAR must stay DISABLED in UEFI. This board has no
-    # Above 4G Decoding option, and with ReBAR on, S3 resume hangs
-    # silently (fans spin, no SSH, no signal, zero resume logs, dead
-    # even to SysRq). Diagnosed 2026-09 after ruling out s2idle, ASPM
-    # retraining and ACPI NVS restore. Cost of disabled ReBAR on desktop
-    # is negligible; do not re-enable without retesting sleep cycles.
+    # Keep ReBAR disabled in UEFI: breaks S3 resume on this board.
     open = false;
     package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };

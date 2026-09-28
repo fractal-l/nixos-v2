@@ -18,8 +18,7 @@
     };
   };
 
-  # Cursor theme and icon theme must be installed system-wide so the
-  # greeter (running as the greetd user) can resolve them.
+  # Cursor theme and icon theme must be system-wide for the greeter.
   environment.systemPackages = with pkgs; [
     capitaine-cursors
     adwaita-icon-theme

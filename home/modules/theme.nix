@@ -43,8 +43,7 @@ in {
     font-name = "${theme.fonts.sans} 11";
   };
 
-  # Qt applications (ayugram etc.) via the qt6ct platform theme that the
-  # mango environment already sets (QT_QPA_PLATFORMTHEME=qt6ct).
+  # Qt apps read this via QT_QPA_PLATFORMTHEME=qt6ct (set in mango env).
   xdg.configFile."qt6ct/colors/ash.conf".text = let
     active = lib.concatStringsSep ", " [
       p.fg # windowText

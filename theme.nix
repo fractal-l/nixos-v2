@@ -1,17 +1,6 @@
-# Central theme definition — the single source of truth for every color,
-# font, and cursor decision in this configuration.
-#
-# "ash" — warm charcoal neutrals with a single sage accent.
-#
-# All contrast ratios are WCAG-verified against the darkest background:
-#   fg       12.75:1   fg-muted  7.52:1   fg-dim   4.01:1
-#   accent    8.80:1   red       5.43:1   blue     6.32:1
-#   yellow    8.97:1   magenta   6.28:1   cyan     7.61:1
-# Dark text (#131211) on accent / tertiary / error fills: 8.80 / 6.32 / 5.43:1.
-#
-# This file is pure data (plus small derivation helpers) so it can be
-# imported by both NixOS-level and home-manager-level modules through
-# the `theme` special argument.
+# "ash": warm charcoal neutrals, one sage accent. Contrast-verified
+# palette (fg 12.75, muted 7.5, dim 4.0, accent 8.8). Pure data +
+# derivation helpers, shared via the `theme` special arg.
 rec {
   name = "ash";
 
